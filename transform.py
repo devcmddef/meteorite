@@ -21,16 +21,24 @@ class Meteorite:
         except ValueError:
             self.mass = 0
 
-
 def get_meteorite_data(url):
-    # Read CSV earthquake data from USGS
-    response = requests.get(url)
-    csvio = io.StringIO(response.text)
-    reader = csv.reader(csvio)
-    header = next(reader)
-    meteo = [Meteorite(row) for row in reader]
-    meteo = [m for m in meteo if m.mass > 0]
-    return meteo
+    meteo = []
+    data = []
+    with open('mass_cor.csv', newline='') as csvfile:
+        r = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        for row in r:
+            # print(', '.join(row))
+            data.append(row)
+        data.pop(0)
+
+    for d in data:
+        sl = []
+        for s in row[0].split(","):
+            sl.append(float(s))
+        meteo.append(sl)
+    m = [Meteorite(row) for row in meteo]
+    #quakes = [q for q in quakes if q.magnitude > 0]
+    return m
 
 
 # control marker color and size based on magnitude
@@ -47,7 +55,7 @@ def get_marker(magnitude):
 
 
 def create_png(url, outfile):
-    meteos = get_meteorite_data('https://github.com/devcmddef/meteorite/blob/main/mass_cor.csv')
+    meteos = get_meteorite_data('mass_cor.csv')
     print(meteos[0].__dict__)
 
     # Set up Basemap
@@ -79,6 +87,6 @@ def create_png(url, outfile):
 
 if __name__ == '__main__':
     #url = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.csv'
-    url = 'https://github.com/devcmddef/meteorite/blob/main/mass_cor.csv'
+    url = 'mass_cor.csv'
     outfile = 'meteorites.png'
     create_png(url, outfile)
