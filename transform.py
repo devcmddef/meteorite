@@ -7,7 +7,7 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
-
+# this is to test
 
 # Classes to hold the data
 class Meteorite:
