@@ -30,15 +30,17 @@ def get_meteorite_data(url):
             # print(', '.join(row))
             data.append(row)
         data.pop(0)
-
+    #print(data)
     for d in data:
         sl = []
-        for s in row[0].split(","):
+        for s in d[0].split(","):
             sl.append(float(s))
         meteo.append(sl)
+    #print(meteo)
     m = [Meteorite(row) for row in meteo]
     #quakes = [q for q in quakes if q.magnitude > 0]
     return m
+
 
 
 # control marker color and size based on magnitude
@@ -76,7 +78,7 @@ def create_png(url, outfile):
     # the stronger quakes have bigger circles, so we'll see both
     #start_day = quakes[-1].timestamp[:10]
     #end_day = quakes[0].timestamp[:10]
-    meteos.sort(key=lambda m: m.mass, reverse=True)
+    meteos.sort(key=lambda q: q.mass, reverse=True)
 
     # add earthquake info to the plot
     for q in meteos:
