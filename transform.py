@@ -43,14 +43,18 @@ def get_meteorite_data(url):
 
 # control marker color and size based on magnitude
 def get_marker(magnitude):
-    markersize = magnitude * 1;
+
     if magnitude < 100.0:
+        markersize = 2.5 * 1
         return ('bo'), markersize
     if magnitude < 1000.0:
+        markersize = 2.5 * 2
         return ('go'), markersize
     elif magnitude < 10000.0:
+        markersize = 2.5 * 3
         return ('yo'), markersize
     else:
+        markersize = 2.5 * 5
         return ('ro'), markersize
 
 
